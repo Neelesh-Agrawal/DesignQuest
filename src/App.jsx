@@ -2,102 +2,131 @@ import React, { useState, useEffect, useCallback } from 'react';
 import './index.css';
 
 import { CHAPTERS, SCENARIOS } from './gameData';
+import { saveGame, loadGame, clearGame } from './hooks/usePersistence';
+import { getLevel, INITIAL_DNA, updateDNA, computeTitles } from './hooks/useProgression';
 
-import ScoreBar       from './components/ScoreBar';
-import SplashScreen   from './components/SplashScreen';
-import ChapterIntro   from './components/ChapterIntro';
-import ScenarioScreen from './components/ScenarioScreen';
+import ScoreBar          from './components/ScoreBar';
+import SplashScreen      from './components/SplashScreen';
+import ChapterIntro      from './components/ChapterIntro';
+import ScenarioScreen    from './components/ScenarioScreen';
 import ConsequenceScreen from './components/ConsequenceScreen';
-import ChapterSummary from './components/ChapterSummary';
-import FinalScreen    from './components/FinalScreen';
+import ChapterSummary    from './components/ChapterSummary';
+import FinalScreen       from './components/FinalScreen';
 
-// ─── CONSTANTS ────────────────────────────────────────────────────────────────
-const INITIAL_SCORE = 100;
-const TOTAL_CHAPTERS = CHAPTERS.length;
+const INITIAL_SCORE   = 100;
+const TOTAL_CHAPTERS  = CHAPTERS.length;
 const TOTAL_SCENARIOS = SCENARIOS.length;
-const MAX_SCORE = INITIAL_SCORE + TOTAL_SCENARIOS * 15;
+const MAX_SCORE       = INITIAL_SCORE + TOTAL_SCENARIOS * 15;
 
 const createChapterScoreMap = () =>
-  CHAPTERS.reduce((acc, chapter) => {
-    acc[chapter.id] = 0;
-    return acc;
-  }, {});
+  CHAPTERS.reduce((acc, ch) => { acc[ch.id] = 0; return acc; }, {});
 
-// ─── GAME SCREENS ─────────────────────────────────────────────────────────────
 const SCREEN = {
-  SPLASH:        'SPLASH',
-  REFRESH_GUARD: 'REFRESH_GUARD',
-  CHAPTER_INTRO: 'CHAPTER_INTRO',
-  SCENARIO:      'SCENARIO',
-  CONSEQUENCE:   'CONSEQUENCE',
+  SPLASH:          'SPLASH',
+  REFRESH_GUARD:   'REFRESH_GUARD',
+  CHAPTER_INTRO:   'CHAPTER_INTRO',
+  SCENARIO:        'SCENARIO',
+  CONSEQUENCE:     'CONSEQUENCE',
   CHAPTER_SUMMARY: 'CHAPTER_SUMMARY',
-  FINAL:         'FINAL',
+  FINAL:           'FINAL',
 };
 
-// ─── INITIAL STATE ─────────────────────────────────────────────────────────────
 const getInitialState = () => ({
-  screen:          SCREEN.SPLASH,
-  score:           INITIAL_SCORE,
-  chapter:         CHAPTERS[0]?.id || 1,
-  scenarioIndex:   0,             // 0–4 within chapter
-  lastDelta:       null,          // last score change for bar animation
-  showDelta:       false,
-  selectedChoice:  null,
-  principles:      [],            // { principle, lesson } collected
-  chapterScores:   createChapterScoreMap(),
-  started:         false,         // true once any game screen was shown (for refresh guard)
+  screen:         SCREEN.SPLASH,
+  score:          INITIAL_SCORE,
+  chapter:        CHAPTERS[0]?.id || 1,
+  scenarioIndex:  0,
+  lastDelta:      null,
+  showDelta:      false,
+  selectedChoice: null,
+  principles:     [],
+  chapterScores:  createChapterScoreMap(),
+  choices:        [],
+  dna:            { ...INITIAL_DNA },
+  titles:         [],
+  level:          'Junior Designer',
+  activeUITask:   null,          // BUG FIX: was missing
+  started:        false,
 });
 
 export default function App() {
   const [state, setState] = useState(getInitialState);
+  const [savedGame, setSavedGame] = useState(() => loadGame());
 
-  // ─── REFRESH GUARD ─────────────────────────────────────────────────────────
-  // If user refreshes while mid-game, show recovery screen
   useEffect(() => {
-    const onLoad = () => {
-      // If we detect a page reload while game was in progress, redirect to guard
-      if (performance.navigation?.type === 1 || performance.getEntriesByType?.('navigation')[0]?.type === 'reload') {
-        setState(prev => {
-          if (prev.started && prev.screen !== SCREEN.SPLASH && prev.screen !== SCREEN.FINAL) {
-            return { ...prev, screen: SCREEN.REFRESH_GUARD };
-          }
-          return prev;
-        });
+    if (state.started && state.screen !== SCREEN.SPLASH && state.screen !== SCREEN.REFRESH_GUARD) {
+      saveGame(state);
+    }
+  }, [state]);
+
+  // Refresh guard
+  useEffect(() => {
+    const onBeforeUnload = () => {
+      if (state.started && state.screen !== SCREEN.SPLASH && state.screen !== SCREEN.FINAL) {
+        saveGame(state);
       }
     };
-    window.addEventListener('load', onLoad);
-    return () => window.removeEventListener('load', onLoad);
-  }, []);
+    window.addEventListener('beforeunload', onBeforeUnload);
+    return () => window.removeEventListener('beforeunload', onBeforeUnload);
+  }, [state]);
 
-  // ─── HELPERS ───────────────────────────────────────────────────────────────
   const clampScore = (s) => Math.min(Math.max(s, 0), MAX_SCORE);
 
   const currentChapterScenarios = SCENARIOS.filter(s => s.chapter === state.chapter);
-  const currentScenario = currentChapterScenarios[state.scenarioIndex] || null;
-  const currentChapterTotalScenarios = currentChapterScenarios.length;
-  const completedScenariosBeforeChapter = SCENARIOS.filter(s => s.chapter < state.chapter).length;
-  const globalScenarioNumber = completedScenariosBeforeChapter + state.scenarioIndex + 1;
-
-  // ─── ACTIONS ───────────────────────────────────────────────────────────────
+  const currentScenario         = currentChapterScenarios[state.scenarioIndex] || null;
+  const currentChapterTotal     = currentChapterScenarios.length;
+  const completedBefore         = SCENARIOS.filter(s => s.chapter < state.chapter).length;
+  const globalScenarioNumber    = completedBefore + state.scenarioIndex + 1;
 
   const handleStart = useCallback(() => {
-    setState(prev => ({ ...prev, screen: SCREEN.CHAPTER_INTRO, started: true }));
+    clearGame();
+    setSavedGame(null);
+    setState({ ...getInitialState(), screen: SCREEN.CHAPTER_INTRO, started: true });
   }, []);
+
+  const handleResume = useCallback(() => {
+    if (!savedGame) return;
+    setState({
+      ...getInitialState(),
+      ...savedGame,
+      activeUITask: savedGame.activeUITask || null,
+      screen:  SCREEN.SCENARIO,
+      started: true,
+    });
+    setSavedGame(null);
+  }, [savedGame]);
 
   const handleChapterIntroContinue = useCallback(() => {
     setState(prev => ({ ...prev, screen: SCREEN.SCENARIO }));
   }, []);
 
-  const handleChoiceSelected = useCallback((choiceId) => {
+  const handleChoiceSelected = useCallback((choiceId, uiTaskOverride) => {
     const scenario = currentScenario;
     if (!scenario) return;
 
-    const choice = scenario.choices.find(c => c.id === choiceId);
-    if (!choice) return;
+    let delta, consequence;
+    if (uiTaskOverride) {
+      const deltasMap = { A: 15, B: 5, C: -10 };
+      delta       = deltasMap[choiceId] ?? 5;
+      consequence = uiTaskOverride.consequences[choiceId];
+    } else {
+      const choice = scenario.choices.find(c => c.id === choiceId);
+      if (!choice) return;
+      delta       = choice.delta;
+      consequence = scenario.consequences[choiceId];
+    }
 
-    const delta = choice.delta;
-    const newScore = clampScore(state.score + delta);
-    const consequence = scenario.consequences[choiceId];
+    if (!consequence) return;
+
+    const newScore      = clampScore(state.score + delta);
+    const newDNA        = updateDNA(state.dna, scenario.id, choiceId);
+    const newLevel      = getLevel(newScore).name;
+    const newPrinciples = [
+      ...state.principles,
+      { principle: consequence.principle, lesson: consequence.lesson },
+    ];
+    const newTitles = computeTitles(newDNA, newPrinciples);
+
     setState(prev => ({
       ...prev,
       screen:         SCREEN.CONSEQUENCE,
@@ -109,59 +138,66 @@ export default function App() {
         ...prev.chapterScores,
         [prev.chapter]: (prev.chapterScores[prev.chapter] || 0) + Math.max(0, delta),
       },
-      principles: [
-        ...prev.principles,
-        { principle: consequence.principle, lesson: consequence.lesson },
-      ],
+      principles:   newPrinciples,
+      choices:      [...prev.choices, { scenarioId: scenario.id, choiceId }],
+      dna:          newDNA,
+      level:        newLevel,
+      titles:       newTitles,
+      activeUITask: uiTaskOverride || null,
     }));
 
-    // Hide delta after 3s
-    setTimeout(() => {
-      setState(prev => ({ ...prev, showDelta: false }));
-    }, 3000);
-  }, [currentScenario, state.score]);
+    setTimeout(() => setState(prev => ({ ...prev, showDelta: false })), 3000);
+  }, [currentScenario, state]);
 
   const handleConsequenceNext = useCallback(() => {
     const nextIndex = state.scenarioIndex + 1;
-    const chapterScenarioCount = currentChapterScenarios.length;
-
-    if (nextIndex >= chapterScenarioCount) {
-      // End of chapter
-      setState(prev => ({ ...prev, screen: SCREEN.CHAPTER_SUMMARY, scenarioIndex: nextIndex }));
+    if (nextIndex >= currentChapterTotal) {
+      setState(prev => ({
+        ...prev,
+        screen:        SCREEN.CHAPTER_SUMMARY,
+        scenarioIndex: nextIndex,
+        activeUITask:  null,
+      }));
     } else {
       setState(prev => ({
         ...prev,
-        screen: SCREEN.SCENARIO,
-        scenarioIndex: nextIndex,
-        lastDelta: null,
+        screen:         SCREEN.SCENARIO,
+        scenarioIndex:  nextIndex,
+        lastDelta:      null,
         selectedChoice: null,
+        activeUITask:   null,
       }));
     }
-  }, [currentChapterScenarios.length, state.scenarioIndex]);
+  }, [currentChapterTotal, state.scenarioIndex]);
 
   const handleChapterSummaryContinue = useCallback(() => {
     if (state.chapter < TOTAL_CHAPTERS) {
       setState(prev => ({
         ...prev,
-        chapter: prev.chapter + 1,
-        scenarioIndex: 0,
-        screen: SCREEN.CHAPTER_INTRO,
+        chapter:        prev.chapter + 1,
+        scenarioIndex:  0,
+        screen:         SCREEN.CHAPTER_INTRO,
         selectedChoice: null,
-        lastDelta: null,
+        lastDelta:      null,
+        activeUITask:   null,
       }));
     } else {
-      // Game over — final screen
       setState(prev => ({ ...prev, screen: SCREEN.FINAL }));
     }
   }, [state.chapter]);
 
   const handlePlayAgain = useCallback(() => {
+    clearGame();
+    setSavedGame(null);
     setState(getInitialState());
   }, []);
 
-  // ─── RENDER ────────────────────────────────────────────────────────────────
-
   const showScoreBar = state.screen !== SCREEN.SPLASH && state.screen !== SCREEN.REFRESH_GUARD;
+
+  // Determine the effective consequence for ConsequenceScreen
+  const effectiveConsequence = state.activeUITask
+    ? state.activeUITask.consequences?.[state.selectedChoice]
+    : currentScenario?.consequences?.[state.selectedChoice];
 
   return (
     <>
@@ -177,6 +213,8 @@ export default function App() {
       {state.screen === SCREEN.SPLASH && (
         <SplashScreen
           onStart={handleStart}
+          onResume={handleResume}
+          savedGame={savedGame}
           chapterCount={TOTAL_CHAPTERS}
           scenarioCount={TOTAL_SCENARIOS}
           principleCount={TOTAL_SCENARIOS}
@@ -187,24 +225,16 @@ export default function App() {
       {state.screen === SCREEN.REFRESH_GUARD && (
         <div className="refresh-screen">
           <div className="refresh-screen__icon" aria-hidden="true">🔄</div>
-          <h1 className="refresh-screen__title">Game Lost on Refresh</h1>
-          <p className="refresh-screen__desc">
-            DesignQuest doesn't save progress between page reloads. Ready to start a new run?
-          </p>
-          <button
-            id="restart-btn"
-            className="btn btn-primary"
-            onClick={handlePlayAgain}
-            aria-label="Start a new game"
-          >
-            Start Over →
-          </button>
+          <h1 className="refresh-screen__title">Page was refreshed</h1>
+          <p className="refresh-screen__desc">Your progress was saved. Resume right where you left off.</p>
+          <button className="btn btn-primary" onClick={handleResume}>Resume Game →</button>
+          <button className="btn btn-ghost" onClick={handlePlayAgain} style={{ marginTop: 12 }}>Start Over</button>
         </div>
       )}
 
       {state.screen === SCREEN.CHAPTER_INTRO && (
         <ChapterIntro
-          key={`chapter-intro-${state.chapter}`}
+          key={`ci-${state.chapter}`}
           chapter={CHAPTERS.find(c => c.id === state.chapter)}
           totalChapters={TOTAL_CHAPTERS}
           onContinue={handleChapterIntroContinue}
@@ -213,10 +243,10 @@ export default function App() {
 
       {state.screen === SCREEN.SCENARIO && currentScenario && (
         <ScenarioScreen
-          key={`scenario-${currentScenario.id}`}
+          key={`sc-${state.chapter}-${state.scenarioIndex}`}
           scenario={currentScenario}
-          scenarioIndex={state.scenarioIndex + 1}
-          chapterScenarioCount={currentChapterTotalScenarios}
+          scenarioIndex={state.scenarioIndex}
+          chapterScenarioCount={currentChapterTotal}
           chapterNum={state.chapter}
           globalScenarioNumber={globalScenarioNumber}
           totalScenarios={TOTAL_SCENARIOS}
@@ -224,25 +254,30 @@ export default function App() {
         />
       )}
 
-      {state.screen === SCREEN.CONSEQUENCE && currentScenario && state.selectedChoice && (
+      {state.screen === SCREEN.CONSEQUENCE && effectiveConsequence && (
         <ConsequenceScreen
-          key={`consequence-${currentScenario.id}-${state.selectedChoice}`}
-          consequence={currentScenario.consequences[state.selectedChoice]}
+          key={`con-${state.chapter}-${state.scenarioIndex}-${state.selectedChoice}`}
+          scenario={currentScenario}
+          consequence={effectiveConsequence}
+          choiceId={state.selectedChoice}
           delta={state.lastDelta}
           onNext={handleConsequenceNext}
+          uiTask={state.activeUITask}
         />
       )}
 
       {state.screen === SCREEN.CHAPTER_SUMMARY && (
         <ChapterSummary
-          key={`chapter-summary-${state.chapter}`}
+          key={`cs-${state.chapter}`}
           chapterNum={state.chapter}
           chapterTitle={CHAPTERS.find(c => c.id === state.chapter)?.title}
           totalScore={state.score}
           maxScore={MAX_SCORE}
           chapterScore={state.chapterScores[state.chapter] || 0}
-          chapterScenarioCount={currentChapterTotalScenarios}
+          chapterScenarioCount={currentChapterTotal}
           totalChapters={TOTAL_CHAPTERS}
+          dna={state.dna}
+          titles={state.titles}
           onContinue={handleChapterSummaryContinue}
         />
       )}
@@ -253,6 +288,10 @@ export default function App() {
           maxScore={MAX_SCORE}
           principles={state.principles}
           totalScenarios={TOTAL_SCENARIOS}
+          dna={state.dna}
+          titles={state.titles}
+          choices={state.choices}
+          scenarios={SCENARIOS}
           onPlayAgain={handlePlayAgain}
         />
       )}

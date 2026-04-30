@@ -1,86 +1,81 @@
 import React from 'react';
+import { getLevel, getNextLevel, DNA_TRAITS, getDNALabel } from '../hooks/useProgression';
 
-const CHAPTER_EMOJIS = { 1: '🏁', 2: '🚀', 3: '🧭' };
-
-function getChapterVerdict(score, chapterMaxScore) {
-  const strongThreshold = chapterMaxScore * 0.75;
-  const mediumThreshold = chapterMaxScore * 0.4;
-  if (score >= strongThreshold) return { text: "Strong chapter. You pushed back where it counted.", color: 'var(--green)' };
-  if (score >= mediumThreshold) return { text: "Solid work. Some calls landed, some didn't.", color: 'var(--yellow)' };
-  return { text: "Rough chapter — but every mistake is a lesson.", color: 'var(--red)' };
-}
-
-/**
- * ChapterSummary — shown after all 5 scenarios in a chapter.
- * Props:
- *   chapterNum    — 1 or 2
- *   chapterTitle  — string
- *   totalScore    — total accumulated score (not chapter-only)
- *   maxScore      — 220
- *   chapterScore  — points earned this chapter
- *   chapterScenarioCount — number of scenarios in this chapter
- *   totalChapters — total chapters in game
- *   onContinue(fn)
- */
-export default function ChapterSummary({
-  chapterNum,
-  chapterTitle,
-  totalScore,
-  maxScore,
-  chapterScore,
-  chapterScenarioCount,
-  totalChapters,
-  onContinue,
-}) {
-  const clamped = Math.min(Math.max(totalScore, 0), maxScore);
-  const chapterMaxScore = chapterScenarioCount * 15;
-  const verdict = getChapterVerdict(chapterScore, chapterMaxScore);
-  const emoji = CHAPTER_EMOJIS[chapterNum] || '⭐';
-
-  const nextLabel = chapterNum < totalChapters
-    ? `Enter Chapter ${chapterNum + 1} →`
-    : 'See My Results →';
+export default function ChapterSummary({ chapterNum, chapterTitle, totalScore, maxScore, chapterScore, chapterScenarioCount, totalChapters, dna, titles, onContinue }) {
+  const lvl     = getLevel(totalScore);
+  const nextLvl = getNextLevel(totalScore);
+  const pct     = Math.round((totalScore / maxScore) * 100);
 
   return (
     <div className="chapter-summary">
       <div className="chapter-summary__inner">
-        <span className="chapter-summary__icon" aria-hidden="true">{emoji}</span>
+        <div className="chapter-summary__eyebrow">
+          Chapter {chapterNum} of {totalChapters} complete · {chapterScenarioCount} scenarios
+        </div>
+        <h2 className="chapter-summary__title">{chapterTitle}</h2>
 
-        <div className="chapter-summary__label">Chapter {chapterNum} Complete</div>
-        <h1 className="chapter-summary__title">{chapterTitle}</h1>
-
-        {/* Score display */}
-        <div className="chapter-summary__score-display" role="status" aria-label={`Total score: ${clamped} out of ${maxScore}`}>
-          <div className="chapter-summary__score-label">Total Design Rep</div>
-          <div>
-            <span className="chapter-summary__score-number">{clamped}</span>
-            <span className="chapter-summary__score-max"> / {maxScore}</span>
+        {/* Score */}
+        <div className="chapter-summary__score-row">
+          <div className="summary-stat">
+            <div className="summary-stat__num" style={{ color: lvl.color }}>{totalScore}</div>
+            <div className="summary-stat__label">Total Rep</div>
+          </div>
+          <div className="summary-stat">
+            <div className="summary-stat__num">+{chapterScore}</div>
+            <div className="summary-stat__label">This Chapter</div>
+          </div>
+          <div className="summary-stat">
+            <div className="summary-stat__num">{pct}%</div>
+            <div className="summary-stat__label">Max Score</div>
           </div>
         </div>
 
-        {/* Verdict */}
-        <p
-          className="chapter-summary__desc"
-          style={{ color: verdict.color }}
-        >
-          {verdict.text}
-        </p>
+        {/* Level */}
+        <div className="summary-level">
+          <div className="summary-level__badge" style={{ color: lvl.color, borderColor: `${lvl.color}55`, background: `${lvl.color}15` }}>
+            {lvl.name}
+          </div>
+          {nextLvl && (
+            <p className="summary-level__next">{nextLvl.minScore - totalScore} Rep to {nextLvl.name}</p>
+          )}
+        </div>
 
-        {chapterNum < totalChapters && (
-          <p className="chapter-summary__desc" style={{ color: 'var(--text-secondary)' }}>
-            {maxScore - clamped > 0
-              ? `You still have ${maxScore - clamped} Rep points on the table. Next chapter raises the stakes.`
-              : `Perfect chapter. The next one is going to test you even harder.`}
-          </p>
+        {/* DNA Traits */}
+        {dna && (
+          <div className="summary-dna">
+            <div className="summary-dna__label">Your Designer Traits</div>
+            <div className="summary-dna__grid">
+              {Object.entries(DNA_TRAITS).map(([key, config]) => {
+                const val   = dna[key] ?? 50;
+                const label = getDNALabel(key, val);
+                return (
+                  <div key={key} className="dna-card">
+                    <div className="dna-card__trait">{config.label}</div>
+                    <div className="dna-card__value">{label}</div>
+                    <div className="dna-card__bar-wrap">
+                      <div className="dna-card__bar" style={{ width: `${val}%` }} />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         )}
 
-        <button
-          id={`chapter-${chapterNum}-summary-btn`}
-          className="btn btn-primary"
-          onClick={onContinue}
-          aria-label={chapterNum < totalChapters ? `Continue to Chapter ${chapterNum + 1}` : 'View final results'}
-        >
-          {nextLabel}
+        {/* Titles */}
+        {titles && titles.length > 0 && (
+          <div className="summary-titles">
+            <div className="summary-titles__label">Earned Titles</div>
+            <div className="summary-titles__row">
+              {titles.map(t => (
+                <span key={t} className="title-tag">{t}</span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <button className="btn btn-primary" onClick={onContinue} aria-label={chapterNum < totalChapters ? 'Continue to next chapter' : 'See final results'}>
+          {chapterNum < totalChapters ? `Chapter ${chapterNum + 1} →` : 'See Final Results →'}
         </button>
       </div>
     </div>

@@ -1,4 +1,25 @@
-# React + Vite
+# DesignQuest (Day 23)
+
+A design-learning game built with **React** and **Vite**: scenarios, consequences, progress, and optional **Groq** or **Anthropic** API features (AI critic, portfolio text).
+
+## Setup
+
+```bash
+npm install
+cp .env.example .env
+# Edit .env — add at least VITE_GROQ_API_KEY or VITE_ANTHROPIC_API_KEY for AI features
+npm run dev
+```
+
+- **`npm run dev`** — local development  
+- **`npm run build`** — production bundle  
+- **`npm run lint`** — ESLint  
+
+Secrets belong in **`.env`** (gitignored). Use **`.env.example`** as a template. Variables prefixed with `VITE_` are embedded in the client build; do not treat them as server-only secrets if you deploy publicly.
+
+---
+
+## React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

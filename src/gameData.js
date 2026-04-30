@@ -1,4 +1,6 @@
-export const CHAPTERS = [
+import { EXTRA_CHAPTERS, EXTRA_SCENARIOS, getUpdatedEnding } from './gameDataExtension';
+
+const BASE_CHAPTERS = [
   {
     id: 1,
     title: "The Signup Problem",
@@ -22,7 +24,9 @@ export const CHAPTERS = [
   },
 ];
 
-export const SCENARIOS = [
+export const CHAPTERS = [...BASE_CHAPTERS, ...EXTRA_CHAPTERS];
+
+const BASE_SCENARIOS = [
   // ─── CHAPTER 1 ───────────────────────────────────────────────────────────────
   {
     id: 1,
@@ -805,6 +809,8 @@ export const SCENARIOS = [
   },
 ];
 
+export const SCENARIOS = [...BASE_SCENARIOS, ...EXTRA_SCENARIOS];
+
 export const ENDINGS = {
   leadDesigner: {
     range: "250–325",
@@ -832,8 +838,7 @@ export const ENDINGS = {
   },
 };
 
-export const getEnding = (score) => {
-  if (score >= 250) return ENDINGS.leadDesigner;
-  if (score >= 180) return ENDINGS.solidDesigner;
-  return ENDINGS.lessonsLearned;
-};
+export const getEnding = getUpdatedEnding;
+
+// Legacy — kept so any existing imports don't break
+export const BASE_ENDINGS = ENDINGS;
