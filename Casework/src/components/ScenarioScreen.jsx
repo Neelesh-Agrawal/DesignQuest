@@ -1,6 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import UITask from './UITask';
 import { UI_TASKS } from '../gameDataExtension';
+
+function seededShuffle(list, seedValue) {
+  const result = [...list];
+  let seed = Number(seedValue) || 1;
+  for (let i = result.length - 1; i > 0; i -= 1) {
+    seed = (seed * 1664525 + 1013904223) >>> 0;
+    const j = seed % (i + 1);
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
 
 export default function ScenarioScreen({
   scenario,
@@ -24,17 +35,27 @@ export default function ScenarioScreen({
     onChoose(choiceId, taskOverride || null);
   };
 
+  const shuffledChoices = useMemo(() => {
+    if (!scenario?.choices?.length) return [];
+    // Stable order per scenario to avoid visual reshuffle on re-renders.
+    return seededShuffle(scenario.choices, scenario.id);
+  }, [scenario]);
+
   // Keyboard shortcuts for text scenarios only
   useEffect(() => {
     if (uiTask || disabled) return;
     const onKey = (e) => {
       if (disabled) return;
-      const map = { '1': 'A', '2': 'B', '3': 'C' };
-      if (map[e.key]) { setDisabled(true); onChoose(map[e.key], null); }
+      const idx = Number(e.key) - 1;
+      const target = shuffledChoices[idx];
+      if (target?.id) {
+        setDisabled(true);
+        onChoose(target.id, null);
+      }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [disabled, onChoose, uiTask]);
+  }, [disabled, onChoose, uiTask, shuffledChoices]);
 
   const pct = Math.round((globalScenarioNumber / totalScenarios) * 100);
 
@@ -69,15 +90,15 @@ export default function ScenarioScreen({
             <p className="scenario__choices-label">Choose your response</p>
             <p className="scenario__shortcut-hint">Tip: Press 1, 2, or 3 to choose quickly.</p>
             <div className="scenario__choices" role="group" aria-label="Response options">
-              {scenario.choices.map((choice) => (
+              {shuffledChoices.map((choice, idx) => (
                 <button
                   key={choice.id}
                   className="choice-btn"
                   onClick={() => handleChoice(choice.id, null)}
                   disabled={disabled}
-                  aria-label={`Option ${choice.id}: ${choice.text}`}
+                  aria-label={`Option ${idx + 1}: ${choice.text}`}
                 >
-                  <span className="choice-btn__letter" aria-hidden="true">{choice.id}</span>
+                  <span className="choice-btn__letter" aria-hidden="true">{idx + 1}</span>
                   {choice.text}
                 </button>
               ))}
