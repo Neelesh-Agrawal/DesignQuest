@@ -6,6 +6,8 @@ export function saveGame(state) {
       score:         state.score,
       chapter:       state.chapter,
       scenarioIndex: state.scenarioIndex,
+      screen:        state.screen,
+      completed:     state.screen === 'FINAL',
       principles:    state.principles,
       chapterScores: state.chapterScores,
       choices:       state.choices || [],

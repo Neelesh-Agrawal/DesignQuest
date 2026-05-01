@@ -1084,9 +1084,16 @@ button:focus-visible,
 }
 
 .final-screen__actions {
-  display: flex;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 12px;
-  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+.final-screen__actions .btn {
+  width: 100%;
+  justify-content: center;
 }
 
 /* ─── REFRESH SCREEN ─────────────────────────────────────────────────────────── */
@@ -1844,7 +1851,7 @@ button:focus-visible,
 
 /* Tabs */
 .final-tabs {
-  display: flex; gap: 4px; width: 100%; max-width: 480px;
+  display: flex; gap: 4px; width: 100%;
   background: rgba(255,255,255,0.04); border-radius: 10px;
   padding: 4px; margin-bottom: 16px;
 }
@@ -1860,7 +1867,7 @@ button:focus-visible,
 .final-tab:hover:not(.active) { color: #F0F6FF; }
 
 /* Panel */
-.final-panel { width: 100%; max-width: 480px; }
+.final-panel { width: 100%; }
 .panel-count  { font-size: 12px; color: #8B9AB8; margin-bottom: 14px; }
 .panel-intro  { font-size: 12px; color: #8B9AB8; margin-bottom: 16px; line-height: 1.6; }
 
@@ -1881,6 +1888,16 @@ button:focus-visible,
 }
 .missed-item__title {
   font-size: 13px; font-weight: 600; color: #F0F6FF; margin-bottom: 10px;
+}
+.missed-item__context {
+  font-size: 12px;
+  line-height: 1.55;
+  color: #8B9AB8;
+  margin: 0 0 12px;
+}
+.missed-item__context-label {
+  color: #C8D6EF;
+  font-weight: 600;
 }
 .missed-item__row {
   display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px;
@@ -1933,6 +1950,39 @@ button:focus-visible,
   white-space: pre-wrap; margin-bottom: 14px;
 }
 .case-study-actions { display: flex; gap: 10px; }
+.case-study-actions .btn {
+  min-height: 50px;
+}
+.case-study-actions .btn-defend {
+  margin-top: 0;
+  padding: 14px 32px;
+  font-size: 0.875rem;
+  border-radius: var(--radius-md);
+}
+
+@media (max-width: 600px) {
+  .final-screen__actions {
+    grid-template-columns: 1fr;
+  }
+
+  .case-study-actions {
+    flex-direction: column;
+  }
+
+  .case-study-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .missed-item__row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .missed-item__arrow {
+    display: none;
+  }
+}
 
 /* critic muted */
 .critic-line.muted { color: #4A5568; font-style: italic; font-size: 12px; }

@@ -1,6 +1,16 @@
 import React from 'react';
 
-export default function SplashScreen({ onStart, onResume, savedGame, chapterCount, scenarioCount, principleCount, maxRep }) {
+export default function SplashScreen({
+  onStart,
+  onResume,
+  onViewFinalReport,
+  canViewFinalReport,
+  savedGame,
+  chapterCount,
+  scenarioCount,
+  principleCount,
+  maxRep,
+}) {
   const formatDate = (ts) => {
     if (!ts) return '';
     return new Date(ts).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
@@ -69,10 +79,32 @@ export default function SplashScreen({ onStart, onResume, savedGame, chapterCoun
         {savedGame ? (
           <>
             <div className="splash__cta-actions">
-              <button type="button" className="btn btn-primary" onClick={onResume} aria-label="Resume saved game">Resume Game →</button>
+              {canViewFinalReport ? (
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={onViewFinalReport}
+                  aria-label="View final report"
+                >
+                  View Final Report →
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={onResume}
+                  aria-label="Resume saved game"
+                >
+                  Resume Game →
+                </button>
+              )}
               <button type="button" className="btn btn-ghost" onClick={onStart} aria-label="Start a new game">New Game</button>
             </div>
-            <p className="splash__warn">New game will overwrite saved progress</p>
+            <p className="splash__warn">
+              {canViewFinalReport
+                ? 'Completed run found — open your report or start a new game.'
+                : 'New game will overwrite saved progress'}
+            </p>
           </>
         ) : (
           <button className="btn btn-primary" onClick={onStart} aria-label="Start Casework">Start Game →</button>

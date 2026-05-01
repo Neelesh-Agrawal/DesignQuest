@@ -52,6 +52,13 @@ const getInitialState = () => ({
 export default function App() {
   const [state, setState] = useState(getInitialState);
   const [savedGame, setSavedGame] = useState(() => loadGame());
+  const hasCompletedSave = Boolean(
+    savedGame && (
+      savedGame.completed ||
+      savedGame.screen === SCREEN.FINAL ||
+      (savedGame.choices?.length || 0) >= TOTAL_SCENARIOS
+    ),
+  );
 
   useEffect(() => {
     if (state.started && state.screen !== SCREEN.SPLASH && state.screen !== SCREEN.REFRESH_GUARD) {
@@ -91,6 +98,18 @@ export default function App() {
       ...savedGame,
       activeUITask: savedGame.activeUITask || null,
       screen:  SCREEN.SCENARIO,
+      started: true,
+    });
+    setSavedGame(null);
+  }, [savedGame]);
+
+  const handleViewFinalReport = useCallback(() => {
+    if (!savedGame) return;
+    setState({
+      ...getInitialState(),
+      ...savedGame,
+      activeUITask: null,
+      screen: SCREEN.FINAL,
       started: true,
     });
     setSavedGame(null);
@@ -214,6 +233,8 @@ export default function App() {
         <SplashScreen
           onStart={handleStart}
           onResume={handleResume}
+          onViewFinalReport={handleViewFinalReport}
+          canViewFinalReport={hasCompletedSave}
           savedGame={savedGame}
           chapterCount={TOTAL_CHAPTERS}
           scenarioCount={TOTAL_SCENARIOS}

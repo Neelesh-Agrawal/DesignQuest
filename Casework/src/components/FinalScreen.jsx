@@ -16,6 +16,13 @@ export default function FinalScreen({
   totalScore, maxScore, principles, totalScenarios,
   dna, titles, choices, scenarios, onPlayAgain,
 }) {
+  const toContextSnippet = (text = '') => {
+    const normalized = text.replace(/\s+/g, ' ').trim();
+    if (!normalized) return '';
+    const max = 170;
+    return normalized.length > max ? `${normalized.slice(0, max)}...` : normalized;
+  };
+
   const clamped = Math.min(Math.max(totalScore, 0), maxScore);
   const ending  = getEnding(clamped);
   const pct     = Math.round((clamped / maxScore) * 100);
@@ -41,6 +48,7 @@ export default function FinalScreen({
         const best = sc.choices.reduce((a, b) => b.delta > a.delta ? b : a);
         return {
           title:     sc.title,
+          context:   toContextSnippet(sc.narration),
           youChose:  sc.choices.find(ch => ch.id === c.choiceId)?.text,
           bestWas:   best.text,
           principle: sc.consequences[best.id]?.principle,
@@ -201,6 +209,9 @@ Write in a professional but human tone. No bullet points. No headers. Just three
                   {missedItems.map((item, i) => (
                     <div key={i} className="missed-item">
                       <div className="missed-item__title">{item.title}</div>
+                      <p className="missed-item__context">
+                        <span className="missed-item__context-label">Scenario context:</span> {item.context}
+                      </p>
                       <div className="missed-item__row">
                         <div className="missed-item__col">
                           <div className="missed-item__col-label">You chose</div>
