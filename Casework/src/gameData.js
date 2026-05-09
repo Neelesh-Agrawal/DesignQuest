@@ -79,6 +79,13 @@ const BASE_SCENARIOS = [
           "Good design requires psychological safety and collaboration. Bypassing stakeholders to reach a 'compromise' actually satisfies no one and destroys trust — the most important resource on a small team.",
       },
     },
+    reflection: {
+      law: "Hick's Law",
+      summary: "Every extra field is a decision — and decisions compound into abandonment.",
+      realWorld: "Open any top-performing SaaS signup today — Notion, Linear, Figma. Count the fields. You'll find 2–3 maximum: email, password, maybe a name. None ask for company size or job title upfront. They collect that later, after you've experienced value. Verify this yourself in 60 seconds.",
+      bestCall: "Push back with data and propose collecting extra info post-signup. Deliver value first, ask questions later. The best form is the shortest one that still gets what you need.",
+      learnMore: "lawsofux.com/hicks-law",
+    },
   },
   {
     id: 2,
@@ -131,6 +138,13 @@ const BASE_SCENARIOS = [
         principleDetail:
           "Design decisions without explanation are fragile. When you can't defend a choice to all stakeholders, it will be overridden. The most important skill in design is articulating *why*, not just *what*.",
       },
+    },
+    reflection: {
+      law: "WCAG Contrast Ratios",
+      summary: "4.5:1 contrast ratio for normal text is law, not preference — and it's achievable within any brand palette.",
+      realWorld: "Go to webaim.org/resources/contrastchecker right now and paste in two similar greens. Watch it fail. Then adjust the background shade slightly and watch it pass — with the brand color unchanged. This is exactly what Option B does. You can test it in under 2 minutes.",
+      bestCall: "Adjust the background, keep the brand green, pass WCAG AA. The third option that satisfies all constraints is always worth finding before picking a side.",
+      learnMore: "webaim.org/resources/contrastchecker",
     },
   },
   {
@@ -185,6 +199,13 @@ const BASE_SCENARIOS = [
           "Novel interactions and animations create first-impression joy but create friction at scale. When a user sees your animation for the 50th time, they see it as a delay, not a feature. Optimize for the 50th time, not the first.",
       },
     },
+    reflection: {
+      law: "Perceived Performance",
+      summary: "How fast your interface feels matters more than how fast it actually is.",
+      realWorld: "Open LinkedIn, YouTube, or Facebook on a slow connection right now. Before any content loads, you'll see grey placeholder shapes in the exact layout of the feed. This is a skeleton screen — every major platform uses them because they make the wait feel purposeful rather than stuck.",
+      bestCall: "Skeleton screens give users a mental model of what's arriving. The brain anticipates rather than waits. That shift in experience costs nothing technically and changes everything perceptually.",
+      learnMore: "nngroup.com/articles/skeleton-screens",
+    },
   },
   {
     id: 4,
@@ -238,6 +259,13 @@ const BASE_SCENARIOS = [
           "Waiting for perfect data is itself a decision — often a bad one. Design leadership means acting on the best available signal while remaining open to revision. Don't let process be an excuse for inaction.",
       },
     },
+    reflection: {
+      law: "Signal-to-Noise Ratio",
+      summary: "Every unwanted notification trains users to ignore all notifications — permanently.",
+      realWorld: "Check your phone's notification settings right now. You've almost certainly silenced at least one app because it sent too many low-value alerts. That app lost its ability to reach you forever — because it didn't respect your attention. Your users will do exactly the same.",
+      bestCall: "Default to fewer notifications. Give users granular control. Prioritise notifications that require action over ones that only inform. Every unnecessary alert you send costs trust for the ones that matter.",
+      learnMore: "nngroup.com/articles/push-notification",
+    },
   },
   {
     id: 5,
@@ -290,6 +318,13 @@ const BASE_SCENARIOS = [
         principleDetail:
           "Tone is not just aesthetic — it communicates values. Humor in error states, especially self-deprecating humor, can read as indifference. Reserve playfulness for moments of delight. Match tone to emotional context.",
       },
+    },
+    reflection: {
+      law: "Nielsen's Heuristic #9 — Help Users Recover",
+      summary: "Error messages must answer two questions: what happened, and what do I do now?",
+      realWorld: "Next time you fill in a form incorrectly online, notice the error message. The best ones tell you exactly what's wrong: 'Your card number is incomplete' not 'Error 402.' The worst say 'Something went wrong.' One helps you recover. One makes you guess. You'll notice the difference immediately.",
+      bestCall: "Write error messages like you're explaining the problem to a colleague. State what happened, why if helpful, and what to do next. Recovery should feel obvious — not like a puzzle to solve.",
+      learnMore: "nngroup.com/articles/error-message-guidelines",
     },
   },
   // ─── CHAPTER 2 ───────────────────────────────────────────────────────────────
@@ -345,6 +380,13 @@ const BASE_SCENARIOS = [
           "Simplification is powerful but dangerous without data. Know *which* complexity is harmful and *for whom* before removing it. Removal is harder to recover from than addition.",
       },
     },
+    reflection: {
+      law: "Progressive Disclosure",
+      summary: "Show complexity only when users are ready for it — not all at once upfront.",
+      realWorld: "Sign up for Slack with a fresh email. It asks one thing at a time: workspace name, then invite teammates, then your first channel. It doesn't show integrations, notification settings, or billing until you're already invested. Every step is one decision. That's progressive disclosure in action.",
+      bestCall: "Show 4 key widgets by default, let users add more. New users get clarity. Power users get depth. Both groups are served without compromise.",
+      learnMore: "nngroup.com/articles/progressive-disclosure",
+    },
   },
   {
     id: 7,
@@ -398,6 +440,13 @@ const BASE_SCENARIOS = [
           "When designers stay silent, the next loudest voice wins. Advocating for no change is still advocacy — it requires explanation and framing. If you don't show up to the conversation, someone else will design by accident.",
       },
     },
+    reflection: {
+      law: "Typographic Hierarchy",
+      summary: "Display fonts are for impact. UI fonts are for comprehension. Using the wrong one in the wrong place has real consequences.",
+      realWorld: "Open any well-designed documentation site — Stripe's, Notion's, or Linear's. Notice you understand the page structure in under 3 seconds without reading a word. Then open a poorly structured page and count how long it takes to orient yourself. The difference is typographic hierarchy doing its job invisibly.",
+      bestCall: "Decorative font for headings and marketing. Clean, legible font for UI. The right tool for the right context — both brand and product goals satisfied without compromise.",
+      learnMore: "typescale.com",
+    },
   },
   {
     id: 8,
@@ -449,6 +498,13 @@ const BASE_SCENARIOS = [
         principleDetail:
           "Responsive design is not graceful degradation — it's purposeful adaptation. Telling users to use a different device is an admission of failure, not a solution. Users are where they are.",
       },
+    },
+    reflection: {
+      law: "Mobile-First Design",
+      summary: "When the majority of your users are on mobile, mobile is the primary canvas — not an afterthought.",
+      realWorld: "Sign up for Canva or Figma on your phone right now. Notice how fast they put you into a working canvas. These companies with world-class desktop products still design mobile as a first-class experience — because that's where users are.",
+      bestCall: "Delay 2 weeks to design mobile simultaneously. A slightly later launch with a complete experience beats a fast launch that immediately disappoints 61% of your users.",
+      learnMore: "nngroup.com/articles/mobile-first",
     },
   },
   {
@@ -503,6 +559,13 @@ const BASE_SCENARIOS = [
           "A staged rollout (5%, 10%, 25%, 100%) lets you catch edge cases before they affect your entire user base. It's not a sign of uncertainty — it's a sign of professionalism. Fearless shipping is possible only when you have a safety net.",
       },
     },
+    reflection: {
+      law: "A/B Testing & Validated Shipping",
+      summary: "Confidence is not the same as correctness. Validate before you scale.",
+      realWorld: "A/B testing is standard practice across every major tech product — Google, Netflix, Spotify all run hundreds of experiments simultaneously. The methodology is publicly documented and well understood. The cost of a 2-week test is almost always lower than the cost of shipping the wrong thing to 100% of users.",
+      bestCall: "Push for the A/B test. Data turns opinions into evidence and ends debates. When the results come back, even skeptics agree — because it's no longer about preference.",
+      learnMore: "nngroup.com/articles/ab-testing",
+    },
   },
   {
     id: 10,
@@ -555,6 +618,13 @@ const BASE_SCENARIOS = [
           "Deferring measurement to post-launch is a red flag to stakeholders. It suggests you lack confidence in your solution. Good designers define success metrics *before* they ship — and share them proactively as a sign of confidence, not compliance.",
       },
     },
+    reflection: {
+      law: "Research as Persuasion",
+      summary: "Numbers tell. Stories sell. A 2-minute user clip creates more empathy than any slide deck.",
+      realWorld: "Watch any usability test recording — even your own. The moment a real user gets stuck, confused, or gives up is viscerally convincing in a way that no data table can replicate. Stakeholders who don't 'get' UX instantly understand it when they watch a real person struggle with something the team thought was obvious.",
+      bestCall: "Pull up a usability test clip showing a real user struggling with the old design, then the new design solving it. Pair quantitative evidence with a human moment. The CFO says 'Oh. I see it now.' That's the most powerful sentence in a design presentation.",
+      learnMore: "nngroup.com/articles/presenting-research",
+    },
   },
   // ─── CHAPTER 3 ───────────────────────────────────────────────────────────────
   {
@@ -606,6 +676,13 @@ const BASE_SCENARIOS = [
           "Documentation works best when contextual and concise. If help requires leaving the flow, most users will not use it.",
       },
     },
+    reflection: {
+      law: "Empty State Design",
+      summary: "An empty state is the first thing a new user sees — it's onboarding, not decoration.",
+      realWorld: "Create a new Notion database right now. The empty table shows example rows with placeholder content. Create a new Slack channel — it shows conversation starters. Both products are teaching you how to use the feature through the empty state itself. Silence communicates nothing; a good empty state teaches everything.",
+      bestCall: "Add a guided empty state with one clear CTA, a sample preview showing what it looks like when populated, and an estimated setup time. Lower the fear of the blank page.",
+      learnMore: "emptystat.es",
+    },
   },
   {
     id: 12,
@@ -655,6 +732,13 @@ const BASE_SCENARIOS = [
         principleDetail:
           "Recovery patterns are important, but should complement prevention. The highest-impact strategy is still to reduce the chance of the error itself.",
       },
+    },
+    reflection: {
+      law: "Error Prevention — Nielsen's Heuristic #5",
+      summary: "Preventing mistakes is always better than recovering from them.",
+      realWorld: "Try to delete a repository on GitHub right now. It makes you type the exact repository name to confirm — not click a button, type the name. That friction is entirely intentional. For something irreversible at that scale, the cost of a mistake justifies the cost of the confirmation step.",
+      bestCall: "Destructive styling, spacing separation, and a typed confirmation step. For irreversible actions, intentional friction is good design — not bad UX.",
+      learnMore: "nngroup.com/articles/confirmation-dialog",
     },
   },
   {
@@ -706,6 +790,13 @@ const BASE_SCENARIOS = [
           "Focus indicators need sufficient contrast with surrounding UI. If users cannot see focus state, keyboard navigation remains unreliable.",
       },
     },
+    reflection: {
+      law: "WCAG 2.1 — Keyboard Accessibility",
+      summary: "Keyboard accessibility benefits everyone — not just users with disabilities.",
+      realWorld: "Try navigating any website using only Tab, Enter, and Escape — no mouse. On well-built products like GOV.UK or Stripe's documentation, you can reach every element and always see where focus is. On poorly built ones, focus disappears or gets trapped. You'll feel the difference within 30 seconds.",
+      bestCall: "Visible focus ring + ESC to close modal + focus returns to trigger after close. All three together form the complete accessible modal pattern — not just one of them.",
+      learnMore: "webaim.org/techniques/keyboard",
+    },
   },
   {
     id: 14,
@@ -756,6 +847,13 @@ const BASE_SCENARIOS = [
           "Use existing UI patterns and shared decision frameworks to align teams. Consistency in process helps consistency in product.",
       },
     },
+    reflection: {
+      law: "Hick's Law / Progressive Disclosure",
+      summary: "Adding options to a toolbar doesn't add capability — it adds decision time for every user, on every interaction.",
+      realWorld: "Open Figma's toolbar right now. Count the visible tools: roughly 8–10 despite the product having hundreds of capabilities. Everything else lives in menus and panels. The toolbar is a shortcut to the top 20% of actions — not a complete control panel. That restraint is a deliberate design decision.",
+      bestCall: "Keep the 3 most-used actions visible. Group the rest in an 'Advanced' overflow. Power users find what they need. New users aren't slowed by what they don't.",
+      learnMore: "lawsofux.com/hicks-law",
+    },
   },
   {
     id: 15,
@@ -805,6 +903,13 @@ const BASE_SCENARIOS = [
         principleDetail:
           "Use evidence to decide, but do not wait forever. Progress comes from measured iteration, not infinite postponement.",
       },
+    },
+    reflection: {
+      law: "Staged Rollouts",
+      summary: "Shipping to 100% means 100% of users experience any bug you missed. Staged rollouts cap the blast radius.",
+      realWorld: "This is standard practice at every major tech company — called a canary release or percentage rollout. It's documented publicly by Google, Netflix, and others: start at 1–10%, define what success looks like, watch the metrics, then expand. Real usage always surfaces what testing doesn't.",
+      bestCall: "10% → 30% → 100% with predefined success thresholds and rollback criteria at each stage. Defining what 'success' looks like before you ship is as important as the rollout itself.",
+      learnMore: "martinfowler.com/bliki/CanaryRelease.html",
     },
   },
 ];

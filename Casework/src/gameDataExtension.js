@@ -55,6 +55,13 @@ export const EXTRA_SCENARIOS = [
       B: { story: "Without a single new element added, users said the dashboard felt 'organised' and 'easier to read.' The only change was spatial relationships.", lesson: "Proximity is the most powerful grouping tool you have. It costs nothing.", principle: "Gestalt — Proximity", principleDetail: "Proximity works because the brain groups nearby elements before processing anything else. Move related items together and use generous space between groups. Done right, users understand your layout structure in under 200ms — before they've read a single word." },
       C: { story: "Color backgrounds helped section differentiation but introduced new problems — which color meant what? Users had to learn a new color system on top of the layout.", lesson: "Color can reinforce grouping. It cannot replace structure.", principle: "Gestalt — Similarity", principleDetail: "Color is a grouping tool — but it works on similarity, not proximity. When you use color to group, it needs to be consistent and meaningful across the whole UI. Using it only to fix layout chaos introduces new cognitive load without solving the underlying spatial problem." },
     },
+    reflection: {
+      law: "Gestalt — Proximity",
+      summary: "The brain groups nearby elements before processing anything else. Proximity is the cheapest grouping tool in design.",
+      realWorld: "Open Linear or Notion's sidebar right now. There are almost no visible dividers or borders — just slightly more space between groups than within them. You understand the structure before reading a single word. That's proximity working exactly as it should.",
+      bestCall: "Group related elements closer together, increase space between groups. No new elements needed. Proximity communicates grouping more cleanly than borders or backgrounds — and adds zero visual weight.",
+      learnMore: "lawsofux.com/law-of-proximity",
+    },
   },
   {
     id: 17, chapter: 4,
@@ -70,6 +77,13 @@ export const EXTRA_SCENARIOS = [
       A: { story: "Everything looked consistent, but users still couldn't tell what was active. Same filled icon for both states meant state was invisible. The system looked unified but communicated nothing.", lesson: "Consistency without communication is just decoration.", principle: "Gestalt — Similarity", principleDetail: "Gestalt's Law of Similarity: elements that look alike are perceived as in the same state. Using the same style for both active and inactive states breaks this — users can't distinguish between them. Similarity must be purposeful and encode meaning." },
       B: { story: "Within a week, support tickets about 'icons not working' dropped to zero. Users immediately understood the visual language. The system taught itself.", lesson: "A visual system that teaches users its own rules is a good system.", principle: "Gestalt — Similarity", principleDetail: "Similarity creates expectation. When outline = inactive and filled = active, users build this mental model after one exposure. Visual consistency encodes meaning so users don't have to remember — they see and know. That's the goal of every icon system." },
       C: { story: "Color worked for sighted users but failed for the 8% with color blindness. Red/green active states became invisible. An accessibility complaint arrived within 3 days.", lesson: "Never use color as the only signal for state. It excludes users who cannot distinguish colors.", principle: "Accessibility & WCAG AA", principleDetail: "WCAG 1.4.1 — Use of Color: color must not be the only visual means of conveying information. Combine color with shape, icon style, or text to ensure all users can perceive state changes. Color blindness affects 8% of males — it's not a rare edge case." },
+    },
+    reflection: {
+      law: "Gestalt — Similarity",
+      summary: "Elements that look alike are perceived as being in the same state. Active and inactive icons must look different to communicate their difference.",
+      realWorld: "Open Instagram, Twitter/X, or any native iOS app and look at the bottom navigation. Active tab: filled icon. Inactive tabs: outline icons. This convention is universal across iOS and Android because it works — users learn it after one exposure and never have to think about it again.",
+      bestCall: "Outline = inactive. Filled = active. One rule, applied consistently across the whole product. Users build this mental model immediately and never have to consciously read the state again.",
+      learnMore: "material.io/design/iconography",
     },
   },
   {
@@ -87,6 +101,13 @@ export const EXTRA_SCENARIOS = [
       B: { story: "Eye tracking on the updated page showed 70% of attention going to the middle tier within 2 seconds. Clicks on the recommended plan increased 41%. The plan practically chose itself.", lesson: "The eye goes to what's different. Make the right thing the most different thing on the page.", principle: "Von Restorff Effect", principleDetail: "The Von Restorff Effect says distinctiveness drives attention. On a pricing page, elevation, size, color, and a badge all signal 'this one is different.' Combine multiple distinctiveness signals for maximum effect. The goal isn't to trick — it's to guide." },
       C: { story: "Removing options confused users who needed to compare. 'Where's the basic plan?' became a top support question. Conversion dropped as users left to compare elsewhere.", lesson: "Choice is not always the enemy. Sometimes users need to compare in order to decide.", principle: "Hick's Law", principleDetail: "Hick's Law applies when choices are confusing or equal — not when they're helping users calibrate. Pricing comparisons need contrast to work. Removing reference points removes the reason the recommended option feels like a good deal." },
     },
+    reflection: {
+      law: "Von Restorff Effect",
+      summary: "The eye goes to what's different. Make the right option the most visually distinct thing on the page.",
+      realWorld: "Visit the pricing pages of Notion, Linear, or Figma right now. Each has a recommended plan that's visually distinct — elevated card, colored border, 'Most Popular' badge. This is intentional. The effect is immediate — you understand which plan they recommend before reading a word.",
+      bestCall: "Make the recommended tier dramatically different — elevation, color, size, badge. Combine multiple distinctiveness signals. The goal is to guide users to the option that genuinely serves most of them best.",
+      learnMore: "lawsofux.com/von-restorff-effect",
+    },
   },
   {
     id: 19, chapter: 4,
@@ -103,6 +124,13 @@ export const EXTRA_SCENARIOS = [
       B: { story: "A semi-transparent dark overlay on the background photo made the product screenshot immediately read as figure against ground. Users understood the page structure within 1 second. Both elements coexisted.", lesson: "The brain needs a clear figure and a clear ground. Give it one.", principle: "Gestalt — Figure-Ground", principleDetail: "Figure-Ground separation is fundamental to visual perception. Without it, the brain expends energy resolving the ambiguity — which feels like confusion. Techniques: darken or blur the background, add separation, increase contrast. The product should be unmistakably figure." },
       C: { story: "Clarity improved massively but the page felt cold and corporate. A/B testing showed the clean version was clearer, but the lifestyle version was more trustworthy. The data suggested keeping both — correctly separated.", lesson: "Eliminating the competing element is different from solving the hierarchy problem.", principle: "Gestalt — Figure-Ground", principleDetail: "Sometimes the right answer is not to remove the competing element but to properly subordinate it. A blurred or dimmed background photo preserves emotional warmth while allowing the product to read as foreground. Solve the hierarchy problem — don't delete half the design." },
     },
+    reflection: {
+      law: "Gestalt — Figure-Ground",
+      summary: "The brain separates every visual scene into subject and background. When both compete equally, users experience confusion.",
+      realWorld: "Visit apple.com and look at any product page. The product is always unmistakably foreground — on a clean, simple, or deliberately blurred background. Apple never lets the background compete with the product. This is figure-ground separation applied with intention on every page.",
+      bestCall: "Darken or blur the background photo so the product reads clearly as figure. Both elements can coexist — they just cannot compete at equal visual weight. Subordinate the background; don't delete it.",
+      learnMore: "interaction-design.org/literature/topics/gestalt-principles",
+    },
   },
   {
     id: 20, chapter: 4,
@@ -118,6 +146,13 @@ export const EXTRA_SCENARIOS = [
       A: { story: "Miss-click rates on the button tripled. On mobile, users averaged 2.3 attempts to hit it. Session recordings showed visible frustration. The 'Create Project' button went from invisible to a pain point.", lesson: "Small targets feel clean in mockups and cruel in real use.", principle: "Fitts's Law", principleDetail: "Fitts's Law: the time to hit a target is a function of its size and distance from the cursor. Smaller targets take exponentially longer to click accurately — especially on mobile with imprecise finger input. Apple's HIG and Google's Material Design both specify minimum 44–48px touch targets for exactly this reason." },
       B: { story: "The primary action stayed fast and reliable. Users created projects without friction. You saved pixel budget elsewhere without touching the most important button.", lesson: "Targets should be sized by importance. The most-used action deserves the biggest, easiest-to-hit target.", principle: "Fitts's Law", principleDetail: "Fitts's Law tells you to prioritize your most important and frequently used controls with the largest, closest targets. Primary actions like 'Create', 'Save', and 'Submit' should be the easiest things to hit on the screen. Design their size accordingly." },
       C: { story: "Miss-click rates still increased 60% on mobile. A partial fix is a different failure mode — 36px is too small for a primary action on touch devices.", lesson: "Compromising on touch target size is not a design compromise. It is a usability failure at half price.", principle: "Fitts's Law", principleDetail: "Touch targets follow the physics of fingers, not the aesthetics of screens. A fingertip is approximately 9mm wide. At 36px (about 9.5mm), you're operating at the edge of comfortable accuracy. The 44–48px minimum exists because 36px causes measurable miss-click increases in research." },
+    },
+    reflection: {
+      law: "Fitts's Law",
+      summary: "The time and accuracy of hitting a target is determined by its size. Smaller primary buttons is a physics problem, not a style preference.",
+      realWorld: "Open Apple's Human Interface Guidelines (developer.apple.com/design/human-interface-guidelines) or Google's Material Design (m3.material.io) right now. Both specify minimum touch target sizes — 44pt and 48dp respectively. These are platform requirements derived from the average width of a human fingertip.",
+      bestCall: "Reject the shrink. Primary actions stay at 44–48px minimum. The most frequently used action on the screen deserves the largest, easiest-to-hit target. Size is not waste when it serves what users do most.",
+      learnMore: "lawsofux.com/fittss-law",
     },
   },
 
@@ -137,6 +172,13 @@ export const EXTRA_SCENARIOS = [
       B: { story: "Some users took the offer. Most completed the cancellation. But months later, 22% of cancelled users resubscribed — versus 8% industry average. They left well. They came back.", lesson: "A graceful goodbye is the best marketing for a return.", principle: "Peak-End Rule", principleDetail: "End experiences well. Users who feel respected on their way out retain a positive emotional memory of the product. That memory is what drives reactivation. The Peak-End Rule isn't just about avoiding negative peaks — it's about engineering positive endings deliberately." },
       C: { story: "Users left without friction, which was better than dark patterns. But you missed an opportunity to understand why they left or offer genuine value. Some would have stayed for the right offer.", lesson: "Frictionless cancellation is respectful. A genuine conversation is better.", principle: "Peak-End Rule", principleDetail: "Frictionless exits are ethical and user-respecting. But a single honest retention moment — not manipulative, not desperate — can surface value the user forgot. The distinction is intent: serving the user versus serving the metric." },
     },
+    reflection: {
+      law: "Peak-End Rule",
+      summary: "People judge an experience by its peak and its ending — not the average. A painful cancellation becomes the dominant memory of your product.",
+      realWorld: "Think about an app you cancelled and how they handled it. Did they make it difficult? Did you remember that? Now think about one that let you go gracefully with a genuine offer. The ending is what you remember — and what determines whether you come back.",
+      bestCall: "One clean 'Before you go' screen with a genuine offer and a clear cancel option. Users who leave well come back. Users who leave badly don't — and they tell others.",
+      learnMore: "nngroup.com/articles/peak-end-rule",
+    },
   },
   {
     id: 22, chapter: 5,
@@ -152,6 +194,13 @@ export const EXTRA_SCENARIOS = [
       A: { story: "Short-term revenue increased. Three months later, churn on the expensive plan was 3x higher. Users felt tricked into a plan they didn't need. Refund requests surged.", lesson: "Defaults that exploit users create revenue you have to return later.", principle: "Default Effect", principleDetail: "The Default Effect: people tend to accept whatever option is pre-selected, especially for complex decisions. Designers have enormous power over outcomes through defaults. With that power comes responsibility — defaults should serve users, not exploit their inertia." },
       B: { story: "You asked one onboarding question: 'How big is your team?' Small teams defaulted to Basic, medium to Pro. Users on the right plan retained 40% better and upgraded organically as they grew.", lesson: "Defaults done right serve users first — and then the business.", principle: "Default Effect", principleDetail: "The ethical use of the Default Effect: pre-select the option most likely to serve the user's actual needs. Done right, it reduces friction while serving the business through reduced churn. It requires knowing your users — but that's the designer's job." },
       C: { story: "Forcing active choice led to 34% of users picking randomly or abandoning the flow entirely. Decision paralysis on plan selection was creating drop-off before trial even started.", lesson: "Sometimes the kindest design removes the decision entirely.", principle: "Hick's Law", principleDetail: "Hick's Law applies at plan selection too. Forcing a cold, uninformed choice between plans causes decision fatigue and abandonment. A smart default based on the user's context is more respectful than forcing them to choose what they don't yet understand." },
+    },
+    reflection: {
+      law: "Default Effect",
+      summary: "Whatever ships as the default becomes the experience for the majority of users. Defaults are design decisions with outsized consequences.",
+      realWorld: "Go to your Gmail settings right now and find 'Conversation View.' It defaults to On. Most Gmail users have never changed it — not because they love threaded email, but because changing defaults requires effort most users never take. Defaults are choices you make on behalf of everyone who doesn't customise.",
+      bestCall: "Pre-select the most appropriate plan based on the user's stated needs. The ethical default serves users first. Done right, it reduces friction and improves retention because users are on the right plan from the start.",
+      learnMore: "nngroup.com/articles/the-power-of-defaults",
     },
   },
   {
@@ -169,6 +218,13 @@ export const EXTRA_SCENARIOS = [
       B: { story: "The PM pushed back. You stood firm. The feature wasn't shipped. The next quarter's honest 'free trial, cancel anytime' messaging tested better anyway. Trust is a conversion rate.", lesson: "Honest design is a long-term conversion strategy.", principle: "Dark Patterns", principleDetail: "Ethical design builds the foundation for sustainable conversion. Users who trust a product convert better, stay longer, and recommend more. Fake urgency borrows from future trust. Honest urgency — real deadlines, real limits — works just as well without the liability." },
       C: { story: "A real pricing deadline was set for end of quarter. The banner reflected it accurately. Conversion bumped 14%. Users who converted mentioned the offer in onboarding surveys. Real urgency works because it's true.", lesson: "Urgency is powerful when it is real. It is a design principle, not a deception.", principle: "Nudge Theory", principleDetail: "Nudge Theory (Thaler and Sunstein): small design interventions guide behaviour without restricting choice. Real deadlines and honest limits are legitimate nudges that work with users' natural sense of timing. The key word is real — nudges stop working and start harming when fabricated." },
     },
+    reflection: {
+      law: "Dark Patterns & Ethical Design",
+      summary: "Fake urgency works once — then destroys trust permanently when users notice.",
+      realWorld: "Visit darkpatterns.org right now. It catalogs real documented examples from major companies, many of which resulted in regulatory fines and public backlash. The FTC in the US and regulators in the EU have begun fining companies specifically for fabricated urgency and false scarcity claims.",
+      bestCall: "Refuse. Propose real urgency instead — if a genuine deadline exists, use it. Real urgency converts just as well and builds trust instead of burning it.",
+      learnMore: "darkpatterns.org",
+    },
   },
   {
     id: 24, chapter: 5,
@@ -185,6 +241,13 @@ export const EXTRA_SCENARIOS = [
       B: { story: "'We reduced onboarding time by 40% in our first week.' — Sarah, Design Lead at a 50-person startup. Users in that segment clicked that testimonial 3x more than any other. Conversion from that segment increased 28%.", lesson: "The best testimonial is one where the reader thinks: that is exactly me.", principle: "Social Proof", principleDetail: "Effective social proof is specific, relatable, and outcome-focused. 'I love it!' says nothing. '40% faster onboarding for teams of 20–50' says everything to the right reader. Use testimonials that match your key user segments and feature real, measurable results." },
       C: { story: "Star ratings and counts helped some users but didn't persuade. Cold numbers answer 'is it good?' but not 'is it good for me?' High-consideration purchases need narrative social proof, not just aggregates.", lesson: "Numbers tell. Stories persuade.", principle: "Social Proof", principleDetail: "Aggregate ratings build baseline credibility. Specific testimonials build personal relevance. For high-consideration SaaS products, you need both — but the narrative does the persuasion. Use ratings to establish trust, stories to drive conversion." },
     },
+    reflection: {
+      law: "Social Proof",
+      summary: "People look to others' behaviour in moments of uncertainty. Specificity creates identification — quantity creates noise.",
+      realWorld: "Open Airbnb and look at any listing. Before the price, you see review count, star rating, and Superhost status. Open any SaaS pricing page and find the testimonials. The most persuasive ones name a specific role, company size, and measurable outcome. Notice how that feels different from a generic 'I love this product!'",
+      bestCall: "3–5 highly specific testimonials from recognisable user types with real outcomes. The reader who sees themselves in the testimonial is the reader who converts.",
+      learnMore: "nngroup.com/articles/social-proof-ux",
+    },
   },
   {
     id: 25, chapter: 5,
@@ -200,6 +263,13 @@ export const EXTRA_SCENARIOS = [
       A: { story: "Users found the persistent banner condescending and claustrophobic. Power users blocked it with browser extensions. App store reviews mentioned 'constant nagging.' Trial-to-paid conversion dropped as users churned early in frustration.", lesson: "Persistent pressure is not a nudge. It is a nag — and nags alienate.", principle: "Nudge Theory", principleDetail: "A nudge preserves choice and doesn't restrict the user's experience. A persistent, undismissable reminder removes user control and becomes coercion. The line between nudge and manipulation: can the user reasonably proceed without complying? Undismissable banners fail this test." },
       B: { story: "A clean, dismissable trial reminder at the start of each session converted 18% better than the persistent banner. Users felt informed, not pressured. One prompt per session felt like a helpful reminder, not a hostage situation.", lesson: "The best nudges are noticed, then forgotten. The worst nudges cannot be forgotten.", principle: "Nudge Theory", principleDetail: "Effective nudges are timely (at the right moment), relevant (to the decision at hand), and non-coercive (users can proceed without complying). A once-per-session, dismissable reminder respects user autonomy while keeping trial status visible. That is a nudge. Persistent unavoidable reminders are manipulation." },
       C: { story: "23% of users forgot their trial was ending and were surprised by the unexpected cutoff or charge. Support tickets about unexpected billing surged. Some users felt deceived even though trial terms were clear at signup.", lesson: "Not communicating is also a design decision — and it has consequences.", principle: "Visibility of System Status", principleDetail: "Nielsen's first heuristic: keep users informed about system state. Trial status is important system state. Not communicating it creates surprise — and surprise in billing contexts erodes trust immediately. Find the ethical middle ground: inform without coercing." },
+    },
+    reflection: {
+      law: "Nudge Theory",
+      summary: "A nudge informs without coercing. An undismissable banner that blocks progress is manipulation — not a nudge.",
+      realWorld: "Think about a trial product you've used. The good ones reminded you once per session with a clear, dismissable notice. The bad ones made it impossible to ignore. You felt the difference — and it changed how you felt about the product. Your users feel exactly the same.",
+      bestCall: "Show it once per session, clearly, dismissably. Respect their session after that. Users who feel informed but not pressured convert better — and trust you more.",
+      learnMore: "nngroup.com/articles/nudge-ux",
     },
   },
 
@@ -219,6 +289,13 @@ export const EXTRA_SCENARIOS = [
       B: { story: "You ran a side-by-side usability test — dense vs. spaced. Task time and error rate told the story. The engineers accepted the data. The whitespace stayed.", lesson: "Whitespace is not decoration. It is information architecture made visible.", principle: "Law of Pragnanz", principleDetail: "Whitespace communicates relationship, hierarchy, and priority without adding visual noise. A tight layout may contain more content but less structure — making it harder to use. The Law of Pragnanz tells us simpler, more organised visual fields are processed faster and with fewer errors." },
       C: { story: "A moderate reduction was acceptable. Some structural whitespace was preserved. Task performance dropped slightly but not critically. An imperfect compromise that kept relationships readable.", lesson: "Compromise on whitespace carefully. Every pixel of space carries meaning.", principle: "Law of Pragnanz", principleDetail: "When whitespace must be reduced, protect the most structurally important spacing first — between major sections and around primary actions. Reduce within-section spacing last. The brain needs the macro structure to read the layout." },
     },
+    reflection: {
+      law: "Law of Pragnanz",
+      summary: "Whitespace is not empty space — it is structure made visible. Remove it and the brain works harder.",
+      realWorld: "Open Linear's interface right now. Notice there are almost no visible borders or dividers anywhere. Related items are grouped by spacing alone. The layout communicates structure in under 200ms — before you've read a single word. That's whitespace doing structural work that borders never could.",
+      bestCall: "Defend the whitespace with data. Run a side-by-side usability test — dense vs spaced. Task time and error rate will tell the story more convincingly than any design argument.",
+      learnMore: "lawsofux.com/law-of-pragnanz",
+    },
   },
   {
     id: 27, chapter: 6,
@@ -234,6 +311,13 @@ export const EXTRA_SCENARIOS = [
       A: { story: "Three more users reported the same confusion within a week. A support article was written explaining the colour system. Users should not need articles to understand colour choices in a UI.", lesson: "Colour has meanings built by years of convention. Fighting them costs user trust.", principle: "Colour Theory & Convention", principleDetail: "Colours carry semantic weight from decades of convention: red = danger or error, green = success, yellow = warning, blue = information. Users process colour before reading text. Creative colour use that contradicts convention creates confusion faster than any other design mistake." },
       B: { story: "After the fix — blue for 'New Feature', orange for 'Fixed but pending review' — confusion reports dropped to zero. The colours now worked with users' expectations instead of against them.", lesson: "Colour conventions exist because they work. Use them.", principle: "Colour Theory & Convention", principleDetail: "Use colour with semantic intent: red for errors and danger, green for success and confirmation, yellow and amber for warnings, blue for information. These are not aesthetic rules — they are cognitive shortcuts users rely on without thinking." },
       C: { story: "90% of users never read the legend. The confusion persisted. Users should not need instructions to understand colour in a UI — if they do, the colour choices are wrong.", lesson: "If your colour system requires a legend, the colours are doing the wrong job.", principle: "Recognition Rather Than Recall", principleDetail: "Colour should enable recognition, not demand recall. If users must remember what your custom colour system means, you've replaced a cognitive shortcut with a cognitive load. Use conventional colours that users already know, so zero memory is spent on interpretation." },
+    },
+    reflection: {
+      law: "Color Meaning & Convention",
+      summary: "Red means danger or error. Fighting decades of convention has a cognitive cost every user pays, every session.",
+      realWorld: "Open GitHub right now and look at a pull request status. Success uses green with a checkmark. Failure uses red with an X. Pending uses yellow with a circle. Now try to imagine those colors swapped. Notice how wrong it feels instantly — that's the power of learned color convention.",
+      bestCall: "Fix it immediately. Blue for 'New Feature', conventional colors for status. Don't ask users to unlearn what every other product has taught them.",
+      learnMore: "color.review",
     },
   },
   {
@@ -251,6 +335,13 @@ export const EXTRA_SCENARIOS = [
       B: { story: "With a text label, 'Workspace Templates' usage increased 3x in the first month. The icon reinforced the label; the label rescued the icon. Together they worked.", lesson: "Icons and labels are partners. One without the other is half a communication.", principle: "Icon Clarity & Metaphor", principleDetail: "The rule: if an icon must stand alone, it must be universally recognisable (home, search, close, settings). Novel features need labels. An icon and label pairing is always safer and more accessible than an icon alone. Clarity is more important than elegance in navigation." },
       C: { story: "A grid icon was more recognisable than the abstract shape. Usage improved from near-zero to modest. Still lower than it could have been with a label added. The right icon helps — but a label solves.", lesson: "A better icon is an improvement. A label is a solution.", principle: "Icon Clarity & Metaphor", principleDetail: "Choose icons that use established metaphors or strong visual analogies. But even the best icon will underperform a label for non-universal features. Use the best icon you can find — then add a label anyway." },
     },
+    reflection: {
+      law: "Icon Clarity & Metaphor",
+      summary: "Icons communicate through shared mental models. Novel features have no shared mental model — so they need labels.",
+      realWorld: "Open Figma, Notion, or Linear right now and look at their sidebar navigation. Every item has both an icon and a text label — even for features that have existed for years. These companies could make icon-only navigation. They choose not to, because labels remove the ambiguity that icons always carry.",
+      bestCall: "Always pair icon with text label for non-universal features. Icon + label is always more accessible than icon alone. The best icon reduces reading time for the label — it never replaces it.",
+      learnMore: "nngroup.com/articles/icon-usability",
+    },
   },
   {
     id: 29, chapter: 6,
@@ -267,6 +358,13 @@ export const EXTRA_SCENARIOS = [
       B: { story: "Animations shipped. Users with prefers-reduced-motion enabled got clean instant transitions. Users who loved animation got it. Nobody was harmed. The polish improved the product for those who wanted it.", lesson: "Animation is a feature. Like all features, it should be opt-outable.", principle: "Motion & Animation Safety", principleDetail: "prefers-reduced-motion is a system-level OS setting users enable when they need it. Respecting it in CSS: @media (prefers-reduced-motion: reduce) { * { animation: none; transition: none; } }. This single rule makes animations optional, accessible, and ethical. Ship this as standard practice." },
       C: { story: "The product felt functional but flat. Users described it as 'clinical.' Subtle animation could have improved perceived performance and state communication without harm. Complete absence of motion removed useful feedback.", lesson: "The answer to animation risk is not no animation — it is safe animation.", principle: "Motion & Animation Safety", principleDetail: "Motion communicates: state changes, loading, transitions, feedback. Removing it entirely can make interfaces harder to understand. The goal is purposeful, subtle motion that respects user preferences — not the binary of flashy animations versus none at all." },
     },
+    reflection: {
+      law: "Motion Safety / prefers-reduced-motion",
+      summary: "Vestibular disorders are real. One CSS media query makes animations safe and opt-outable for every user who needs it.",
+      realWorld: "Go to your phone or computer's accessibility settings right now and find 'Reduce Motion' (iOS) or 'Reduce animation' (Android/Windows/Mac). It exists in every major OS because enough people needed it. Enable it and visit any well-built site — animations disappear instantly. That's @media (prefers-reduced-motion: reduce) working.",
+      bestCall: "Ship subtle animations with prefers-reduced-motion support as a default. One CSS rule covers every user who needs it. Polish for those who want it. Clean transitions for those who need them.",
+      learnMore: "developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion",
+    },
   },
   {
     id: 30, chapter: 6,
@@ -282,6 +380,13 @@ export const EXTRA_SCENARIOS = [
       A: { story: "A third-party UX audit showed users spent 40% more time finding section headings than in comparable products. The small text wasn't 'technical' — it was exhausting. Nobody prefers small text.", lesson: "Technical users still have eyes. Nobody prefers small text over readable text.", principle: "Typographic Hierarchy", principleDetail: "Typographic hierarchy guides the eye through content in order of importance. Without it, users scan linearly rather than jumping to relevant sections — significantly increasing cognitive load. This affects all users, technical or not. Type size is not a stylistic preference — it is a navigation tool." },
       B: { story: "After the type scale was implemented, users navigated to their target sections 35% faster. The product suddenly felt 'more professional' in reviews — not because of anything new, just because text hierarchy made it readable.", lesson: "Typography isn't decoration. It is the navigation system for your content.", principle: "Typographic Hierarchy", principleDetail: "A modular type scale creates consistent, mathematically-related sizes (e.g. 14, 18, 24, 32px using a 1.25 ratio). Each level communicates relative importance. Users don't consciously read typography — they feel it. Good type hierarchy reduces cognitive effort and increases comprehension speed." },
       C: { story: "Everything got slightly bigger but nothing got relatively more important. Hierarchy requires contrast between levels, not just size increase. The ratio between heading and body is what creates structure.", lesson: "Size increase without ratio change creates no hierarchy — just bigger clutter.", principle: "Typographic Hierarchy", principleDetail: "Hierarchy is created by contrast between levels, not absolute size. Body at 12px with a heading at 13px: no hierarchy. Body at 14px with a heading at 24px: clear hierarchy. The ratio matters more than the absolute value." },
+    },
+    reflection: {
+      law: "Typographic Hierarchy",
+      summary: "Typography is the navigation system for your content. Without hierarchy, users must read everything to find anything.",
+      realWorld: "Open your browser's developer tools right now and inspect font sizes on any well-designed product — Stripe, Linear, or Figma's marketing site. You'll find clear, consistent size jumps between body text and each heading level. Then inspect a poorly designed product. You'll find body at 12px and headings at 13–14px. One is a navigation system. The other is just text.",
+      bestCall: "Implement a proper modular type scale — 14px body stepping up to 18, 24, 32px headings with at least a 1.25x ratio between levels. The contrast between levels creates hierarchy, not the absolute size of any single level.",
+      learnMore: "typescale.com",
     },
   },
 
@@ -301,6 +406,13 @@ export const EXTRA_SCENARIOS = [
       B: { story: "Five users found the new 'Settings' location unintuitive. A one-hour fix before launch prevented a week of hotfixes. The test found what 3 weeks of internal review missed.", lesson: "5 users find 80% of usability problems. Test before you ship.", principle: "Usability Testing", principleDetail: "Nielsen's research shows 5 users uncover approximately 85% of a product's usability problems at minimal cost. After 5 users you hit diminishing returns. The point isn't comprehensive coverage — it's early signal. One week of testing prevents months of remediation." },
       C: { story: "The 5% rollout caught the Settings confusion. Rollback was clean. The fix was validated with another 5% before full launch. Two-week delay, zero public incident.", lesson: "Real usage data at small scale is the best usability test you have.", principle: "Staged Rollouts", principleDetail: "Staged rollouts with behavioural monitoring — rage clicks, support tickets, error rates — are a form of real-world usability testing at scale. Use both approaches: test before shipping, then validate with staged rollout." },
     },
+    reflection: {
+      law: "Mental Models & Usability Testing",
+      summary: "'We know our users' is the most dangerous assumption in product design. 5 users will find what 3 weeks of internal review misses.",
+      realWorld: "Nielsen Norman Group's research on usability testing — publicly available at nngroup.com/articles/why-you-only-need-to-test-with-5-users — shows 5 users surface approximately 85% of significant usability problems. This is well-established, published research you can read right now. One week of testing prevents months of hotfixes.",
+      bestCall: "Run the 5-person test. Not to get permission to ship — to find the 2–3 things that will break for real users that the team never predicted. You will always find them.",
+      learnMore: "nngroup.com/articles/why-you-only-need-to-test-with-5-users",
+    },
   },
   {
     id: 32, chapter: 7,
@@ -316,6 +428,13 @@ export const EXTRA_SCENARIOS = [
       A: { story: "You optimised the button based on analytics. Click-through improved. Feature adoption didn't. The analytics told you users weren't clicking. Interviews would have told you users didn't understand the value. Two completely different problems.", lesson: "Analytics tells you where users stumble. Interviews tell you why they fall.", principle: "Usability Testing", principleDetail: "Quantitative data shows patterns and magnitudes: '34% of users drop off at step 3.' Qualitative data shows causes and context: 'I don't understand what Connect Workspace means.' Both are necessary. Neither replaces the other." },
       B: { story: "Five interviews revealed that users didn't adopt the feature because they didn't understand the term 'workspace' — Launchly's teams called it 'projects.' A copy change. One week. Adoption increased 45%.", lesson: "The answer was in the language, not the layout. Analytics would never have found it.", principle: "Mental Models", principleDetail: "Mental models include the language users use to understand their work. If your product's terminology doesn't match their vocabulary, they experience cognitive friction even when the UX is perfect. User interviews surface vocabulary mismatches that analytics are blind to." },
       C: { story: "The survey revealed users were 'confused' but couldn't say by what. Surveys capture reactions but rarely causes. The root cause needed follow-up questions — the kind only a live conversation allows.", lesson: "Surveys scale research. Interviews understand it.", principle: "Research Before Redesign", principleDetail: "Surveys validate hypotheses at scale. Interviews generate the hypotheses. Run interviews first to understand, then surveys to validate. Using surveys as a shortcut for interviews gives you data without insight." },
+    },
+    reflection: {
+      law: "Qualitative vs. Quantitative Research",
+      summary: "Analytics tell you what users are doing. Interviews tell you why. You need both.",
+      realWorld: "Nielsen Norman Group's publicly available research on mixed-methods methodology — at nngroup.com/articles/quant-vs-qual — explains precisely why quantitative data alone cannot surface the 'why' behind user behaviour. The article is free to read and is one of the most referenced pieces in UX research practice.",
+      bestCall: "Run the interviews — even 5 will surface themes analytics never could. Pair the 'what' from analytics with the 'why' from conversations. Design decisions made with both are dramatically more reliable.",
+      learnMore: "nngroup.com/articles/quant-vs-qual",
     },
   },
   {
@@ -333,6 +452,13 @@ export const EXTRA_SCENARIOS = [
       B: { story: "You shipped dark mode with scheduled auto-switch and honoured system dark mode settings. Users rated it as the best implementation they'd seen. Reviews called it 'thoughtful.'", lesson: "The job is never the feature. The job is the outcome users need.", principle: "Jobs-to-be-Done", principleDetail: "JTBD reveals that users ask for solutions, not outcomes. When someone requests dark mode, they're telling you the solution they think they need. Your job is to understand the outcome — comfortable night-time use — then build the solution that achieves it most completely." },
       C: { story: "Users felt ignored and talked down to. 'Launchly told me I don't need what I asked for' became a tweet. Requests escalated. You'd solved the research question but destroyed the user relationship.", lesson: "Understanding users' real needs doesn't mean overriding their expressed preferences.", principle: "Jobs-to-be-Done", principleDetail: "JTBD is a research lens, not a veto power. Discovering the underlying job helps you build a better solution — it doesn't mean dismissing what users asked for. Always deliver the expressed request as a baseline. Use job understanding to add the better layer on top." },
     },
+    reflection: {
+      law: "Jobs-to-Be-Done",
+      summary: "Users ask for solutions. Your job is to understand the outcome they actually need.",
+      realWorld: "Clayton Christensen's Jobs-to-Be-Done framework is documented in freely available Harvard Business Review articles — search 'Know Your Customers Jobs to Be Done HBR'. The core insight: people don't buy products, they hire them to do jobs. Understanding the job reveals better solutions than taking requests at face value.",
+      bestCall: "Explore the actual job — reduce eye strain at night — and build the most complete solution for it: dark mode + scheduled auto-switch + system setting support. Users call it 'thoughtful' because it solved the job, not just the request.",
+      learnMore: "hbr.org/2016/09/know-your-customers-jobs-to-be-done",
+    },
   },
   {
     id: 34, chapter: 7,
@@ -349,6 +475,13 @@ export const EXTRA_SCENARIOS = [
       B: { story: "The presentation showed 4 themes, each with 2–3 supporting quotes and one clear implication. Leadership aligned in 30 minutes. 'What do we do with this?' was answered before they asked it.", lesson: "Research becomes valuable when synthesised into decisions.", principle: "Affinity Mapping", principleDetail: "Affinity mapping process: write each insight on a separate note, group similar notes, name the groups, identify the implications of each group. The result is a structured picture of user reality that translates directly to design decisions. Synthesis turns volume into clarity." },
       C: { story: "Your summary was clear but felt like one person's interpretation. Leadership asked 'how do we know this is representative?' You had no way to show your reasoning. The research felt anecdotal.", lesson: "Personal synthesis needs to show its work. Affinity maps show the work.", principle: "Affinity Mapping", principleDetail: "When leadership can see that 9 of 12 users mentioned 'confusing terminology', the finding feels evidential. When they see only your conclusion, it feels interpretive. Show the pattern, not just the conclusion." },
     },
+    reflection: {
+      law: "Affinity Mapping & Research Synthesis",
+      summary: "Undigested research is raw data. Synthesis turns it into decisions leadership can act on.",
+      realWorld: "Affinity mapping is a foundational UX research technique — documented thoroughly at nngroup.com and in every major UX methodology guide. The process: write each insight on a separate note, group related notes, name the groups, identify implications. It takes 2–3 hours and transforms 180 pages of transcripts into 4 actionable themes.",
+      bestCall: "Affinity map first, then present. 3–4 themes, each with supporting quotes and one clear implication. When leadership can see that 9 of 12 users said the same thing, the finding feels evidential — not interpretive.",
+      learnMore: "nngroup.com/articles/affinity-diagram",
+    },
   },
   {
     id: 35, chapter: 7,
@@ -364,6 +497,13 @@ export const EXTRA_SCENARIOS = [
       A: { story: "Tooltips explaining 'Workspace means...' added friction to every session. Users still used their own terms in support tickets causing confusion. Teaching users your language is the most friction-heavy approach possible.", lesson: "Don't teach users your vocabulary. Learn theirs.", principle: "Mental Models", principleDetail: "Mental models include the language users use to understand their work. When your product's terminology doesn't match their vocabulary, every interaction requires translation — invisible cognitive overhead that accumulates into frustration. The product should speak the user's language, not teach them yours." },
       B: { story: "Onboarding now asked 'How do you organise your work?' and connected their language to the Launchly concept first. Onboarding completion improved 28%. Support tickets about 'workspace' dropped significantly.", lesson: "Meet users in their mental model before introducing yours.", principle: "Mental Models", principleDetail: "The best way to introduce a new product concept is to bridge from the user's existing mental model. Acknowledge their terminology, connect it to yours, then gently introduce yours in context. This reduces cognitive effort and creates a clear translation users can reference." },
       C: { story: "Changing to 'Project' helped most users but confused the 30% who used 'team' or 'account.' It also created ambiguity with another feature — actual task-level projects. Terminology changes cascade.", lesson: "Changing a core term is not a small decision. Every word is part of an interconnected system.", principle: "Consistency and Standards", principleDetail: "Changing one term requires changing every related term, UI element, documentation, and user expectation built around it. Before renaming a core concept, audit the full cost. Sometimes better onboarding is safer than a rename that breaks everything connected to it." },
+    },
+    reflection: {
+      law: "Mental Models & User Language",
+      summary: "Don't teach users your vocabulary. Meet them in theirs, then bridge to yours.",
+      realWorld: "Open any well-designed onboarding flow right now — Notion, Slack, or Figma. Notice how they connect new concepts to things you already know before introducing their specific terminology. Notion calls it a 'workspace' but immediately shows you it's like a folder for everything. They bridge from your model to theirs — not the other way around.",
+      bestCall: "Redesign onboarding to ask 'How do you organise your work?' and connect their language to Launchly's concept at first use. Bridge from their mental model to yours — the product should speak their language first.",
+      learnMore: "nngroup.com/articles/mental-models",
     },
   },
 
@@ -383,6 +523,13 @@ export const EXTRA_SCENARIOS = [
       B: { story: "The Figma component library took 3 weeks to build but saved an estimated 40% of design time within 2 months. New designers onboarded in days. Every new screen was instantly consistent.", lesson: "Investment in systems returns compound interest. Work done once benefits every future decision.", principle: "Design Systems", principleDetail: "A design system is infrastructure for design decisions. Components, tokens, patterns, and usage rules codify the decisions you've already made so designers don't have to remake them. Good systems accelerate design, improve consistency, and simplify developer handoff." },
       C: { story: "The audit took 2 weeks and fixed the current state. But without a system, designer 7 added button variant 13 within the month. Audits fix the past. Systems prevent the future.", lesson: "Fixing instances without preventing recurrence is cleanup, not design systems.", principle: "Design Systems", principleDetail: "An audit solves the problem once. A design system prevents it from recurring. Both are valuable — but the system must come first. Without it, audits are a recurring cost with no end." },
     },
+    reflection: {
+      law: "Design Systems",
+      summary: "Documents require discipline. Systems make the right choice the only available choice.",
+      realWorld: "GOV.UK's design system is publicly available right now at design-system.service.gov.uk — one of the most well-documented public design systems in existence. Read how they define components, when to use each one, and how consistency reduces cognitive cost for users navigating unfamiliar government services. It's free, open, and directly applicable.",
+      bestCall: "Build a shared component library in Figma with documented usage rules. It takes 3 weeks and saves orders of magnitude more time than that. Work done once benefits every future design decision.",
+      learnMore: "bradfrost.com/blog/post/atomic-web-design",
+    },
   },
   {
     id: 37, chapter: 8,
@@ -398,6 +545,13 @@ export const EXTRA_SCENARIOS = [
       A: { story: "The modal pattern was now in 14 places. A year later, fixing it took 9 days of engineering work — three times the original cost. The inconsistency had been present in 14% of user flows the entire time.", lesson: "Design debt is interest-bearing. Every sprint you wait, it costs more.", principle: "Design Debt", principleDetail: "Design debt accumulates when shortcuts are taken without a plan to repay them. Unlike technical debt, design debt also degrades user experience — inconsistencies erode trust, increase cognitive load, and create support tickets. Debt paid early costs less than debt paid late." },
       B: { story: "3 days of engineering work cleaned up 8 instances and prevented 6 more. Users experienced a consistent modal pattern. The new feature shipped the following week with no debt inherited.", lesson: "Paying design debt is not slowing down — it is accelerating the next sprint.", principle: "Design Debt", principleDetail: "Design debt repayment has a direct ROI: fewer QA issues, less engineering time on bug fixes, more consistent user experience, and faster future design because patterns are settled. Frame debt repayment to stakeholders as an investment in velocity, not a delay to features." },
       C: { story: "New work used the right pattern. Old work stayed inconsistent. Users now encountered two different modal patterns depending on which area they were in. The partial fix created a different consistency problem.", lesson: "Half-fixed inconsistency is still inconsistency. Patterns must be fully adopted to be effective.", principle: "Consistency and Standards", principleDetail: "Consistency requires universal adoption. A pattern that exists in the library but persists in old implementations creates a two-tier product where some flows feel polished and others feel legacy. Migrate all instances — in coordination with engineering — as the only complete solution." },
+    },
+    reflection: {
+      law: "Design Debt",
+      summary: "Design debt is interest-bearing. Every sprint you wait, the cost of fixing it grows.",
+      realWorld: "Audit your own product right now — open every main screen and count how many visually distinct versions of the same component exist. Most products that haven't done this will find 5–8 where 2–3 would suffice. This is natural. The audit surfaces the debt so it can be repaid before it becomes structurally embedded.",
+      bestCall: "Fix the modal pattern now. 3 days pays off in faster future sprints, fewer QA issues, and a consistent user experience. Frame it to stakeholders as velocity investment — because that's what it is.",
+      learnMore: "zeroheight.com/blog/how-to-audit-your-design-system",
     },
   },
   {
@@ -415,6 +569,13 @@ export const EXTRA_SCENARIOS = [
       B: { story: "80% of users saw a clean interface with a smart default that just worked. Power users found the advanced panel and praised the depth. The feature served both segments without compromising either.", lesson: "The right default is a feature. Advanced options are also a feature. Both can coexist.", principle: "Tesler's Law", principleDetail: "Tesler's Law tells us complexity must live somewhere — in the product or in the user's experience. Good design absorbs it into the product through smart defaults and progressive disclosure. The advanced panel is always there; it is just never in the way." },
       C: { story: "The power user segment churned. They moved to a competitor that offered the configurability they needed. 20% of your highest-value users was not a minority to dismiss.", lesson: "Not building for a segment is a retention decision, not just a product decision.", principle: "User Segmentation", principleDetail: "Power users are often disproportionately valuable — higher LTV, advocates, and drivers of team adoption. Dismissing a feature because the majority doesn't need it without considering who does need it can mean losing your most valuable users." },
     },
+    reflection: {
+      law: "Tesler's Law — Conservation of Complexity",
+      summary: "Complexity cannot be removed — only moved. Move it into the product so users don't have to carry it.",
+      realWorld: "Open any advanced settings panel in Figma, Linear, or Notion right now. These products are deeply configurable — but you'd never know it from the default experience. The complexity is there for users who seek it, invisible to users who don't. That is Tesler's Law applied deliberately.",
+      bestCall: "Smart default for 80% of users. 12 options in an advanced panel for power users who actively seek it. Both segments served. Neither compromised.",
+      learnMore: "lawsofux.com/teslers-law",
+    },
   },
   {
     id: 39, chapter: 8,
@@ -431,6 +592,13 @@ export const EXTRA_SCENARIOS = [
       B: { story: "Design tokens pushed to a shared library meant engineers referenced exact values directly. No interpretation needed. Implementation errors dropped 78% in the first sprint. Design reviews became celebration rather than correction.", lesson: "Fewer decisions at implementation time means fewer opportunities for error.", principle: "Design Systems", principleDetail: "Design tokens are named variables for visual decisions: colours, spacing, type sizes, border radii. When engineers reference tokens like --color-primary and --spacing-lg rather than raw values, changes propagate automatically and interpretation errors disappear. Tokens are the connective tissue between design and engineering." },
       C: { story: "Pair design-implementation helped for the specific features covered but didn't scale. Designers could only sit with one engineer at a time. Other engineers still made the same mistakes. The bandwidth cost was unsustainable.", lesson: "Human oversight does not scale. Systems scale.", principle: "Component Reuse", principleDetail: "Real-time collaboration is valuable for complex, novel problems. Routine implementation of documented components should not require human oversight — that is a sign the documentation is insufficient. Build systems that enable correct implementation without designer supervision." },
     },
+    reflection: {
+      law: "Design Tokens & Handoff",
+      summary: "If engineers must interpret designs, errors are inevitable. Tokens eliminate interpretation.",
+      realWorld: "Figma's developer mode — open figma.com right now — exists entirely because 'just look at the design file' consistently failed. It provides automatic specs and CSS output. Even with this tooling, interactive states and motion still need annotation. Tokens eliminate the most common class of errors: raw values misread or misremembered.",
+      bestCall: "Build a design token system. Named colour, spacing, and type values that engineers reference directly. No interpretation means no interpretation errors. Implementation reviews become validation rather than correction.",
+      learnMore: "designtokens.org",
+    },
   },
   {
     id: 40, chapter: 8,
@@ -446,6 +614,13 @@ export const EXTRA_SCENARIOS = [
       A: { story: "Junior designers stopped taking risks entirely. Safe, predictable work piled up. The 'high standards' culture was producing compliant design, not great design. Creativity requires psychological safety — and the team had none.", lesson: "Harsh critique protects existing standards. Psychological safety creates new ones.", principle: "Collaborative Design Process", principleDetail: "Psychological safety (Edmondson): the belief that you won't be punished for taking interpersonal risks — including sharing experimental work. Teams with psychological safety take more creative risks, learn faster, and produce more innovative outcomes. Brutal review cultures optimise for safety over creativity." },
       B: { story: "Reviews started with: 'Tell me what you were trying to achieve.' Designers began defending their choices rather than apologising for them. Within 2 months, experimental work appeared again. Risk-taking returned.", lesson: "Start with intent. Critique the gap between intent and execution — not the person's ability.", principle: "Collaborative Design Process", principleDetail: "Effective critique: (1) Understand intent first. (2) Identify where execution serves that intent. (3) Identify where it doesn't. (4) Suggest alternatives, not mandates. This separates the work from the person, creates dialogue instead of judgement, and builds the designer's decision-making capacity rather than just fixing the output." },
       C: { story: "Junior designers stopped getting feedback entirely. Senior designers continued informally. The quality gap between junior and senior work widened. Optional feedback is chosen least by those who need it most.", lesson: "Optional critique doesn't improve design quality — it calcifies existing skill gaps.", principle: "Collaborative Design Process", principleDetail: "Structured critique is a core design learning mechanism. Making it optional means the designers who need it most are least likely to opt in due to fear of exposure. Design critique should be regular, structured, and psychologically safe — not optional." },
+    },
+    reflection: {
+      law: "Psychological Safety & Design Critique",
+      summary: "Harsh critique produces compliant design. Psychological safety produces creative design.",
+      realWorld: "Amy Edmondson's research on psychological safety — documented in her book 'The Fearless Organization' and in freely available Harvard Business Review articles — shows teams with psychological safety take more risks, learn faster, and produce more innovative work. This is one of the most replicated findings in organizational research. It applies directly to design teams.",
+      bestCall: "Lead with intent. 'Tell me what you were trying to achieve.' Critique the gap between intent and execution — not the person. Suggest alternatives, not mandates. Within two months, experimental work returns. Risk-taking is the source of great design.",
+      learnMore: "nngroup.com/articles/design-critiques",
     },
   },
 ];
